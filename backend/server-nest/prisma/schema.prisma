@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Customer {
+  id               String   @id @default(uuid())
+  tenantId         String
+  name             String
+  phone            String?
+  email            String?
+  currentBalance   Float    @default(0)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  LedgerEntries    LedgerEntry[]
+}
+
+model Item {
+  id        String   @id @default(uuid())
+  tenantId  String
+  name      String
+  price     Float
+  createdAt DateTime @default(now())
+}
+
+model Sale {
+  id         String     @id @default(uuid())
+  tenantId   String
+  customerId String?
+  total      Float
+  createdAt  DateTime   @default(now())
+  items      SaleItem[]
+}
+
+model SaleItem {
+  id       String @id @default(uuid())
+  saleId   String
+  itemId   String
+  qty      Int
+  price    Float
+}
+
+model LedgerEntry {
+  id          String   @id @default(uuid())
+  tenantId    String
+  customerId  String?
+  amount      Float
+  type        String
+  createdAt   DateTime @default(now())
+}
+
+model AiMessage {
+  id         String   @id @default(uuid())
+  tenantId   String
+  role       String
+  content    String
+  proposedAction String?
+  createdAt  DateTime @default(now())
+}

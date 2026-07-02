@@ -1,0 +1,200 @@
+openapi: 3.0.1
+info:
+  title: MOBO API
+  version: '1.0.0'
+servers:
+  - url: http://localhost:3000/v1
+paths:
+  /auth/otp/request:
+    post:
+      summary: Request OTP
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone_number:
+                  type: string
+      responses:
+        '200':
+          description: OTP sent
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sent:
+                    type: boolean
+  /auth/otp/verify:
+    post:
+      summary: Verify OTP
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone_number:
+                  type: string
+                otp:
+                  type: string
+      responses:
+        '200':
+          description: Tokens
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                  refresh_token:
+                    type: string
+                  is_new_user:
+                    type: boolean
+
+  /insights/summary:
+    get:
+      summary: Insights summary for Home
+      responses:
+        '200':
+          description: Summary
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  today_sales:
+                    type: number
+                  total_receivables:
+                    type: number
+                  low_stock_count:
+                    type: integer
+
+  /ai/conversations:
+    post:
+      summary: Start conversation
+      responses:
+        '201':
+          description: conversation created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  conversation_id:
+                    type: string
+
+  /ai/conversations/{id}/messages:
+    post:
+      summary: Send message to AI
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+      responses:
+        '200':
+          description: assistant message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  role:
+                    type: string
+                  content:
+                    type: string
+                  proposed_action:
+                    type: object
+
+  /ai/actions/{message_id}/confirm:
+    post:
+      summary: Confirm an AI proposed action
+      parameters:
+        - in: path
+          name: message_id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: action executed
+
+  /sync/push:
+    post:
+      summary: Push client changes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                changes:
+                  type: array
+                  items:
+                    type: object
+      responses:
+        '200':
+          description: results
+
+  /customers:
+    get:
+      summary: List customers
+      responses:
+        '200':
+          description: customers
+    post:
+      summary: Create customer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+      responses:
+        '201':
+          description: created
+
+  /customers/{id}/payments:
+    post:
+      summary: Record payment for customer
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: number
+      responses:
+        '200':
+          description: payment recorded
+
+components: {}

@@ -1,0 +1,9 @@
+{
+  "name": "mobo-codespace",
+  "dockerComposeFile": ["../docker-compose.yml"],
+  "service": "workspace",
+  "workspaceFolder": "/workspaces/mobo-os",
+  "extensions": ["ms-azuretools.vscode-docker", "ms-vscode.vscode-node-azure-pack"],
+  "runServices": ["postgres"],
+  "shutdownAction": "stopCompose"
+}
