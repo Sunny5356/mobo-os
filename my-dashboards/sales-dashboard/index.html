@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sales Trend Visualization</title>
+    <style>
+      :root {
+        --bg: #08111d;
+        --panel: #101c2f;
+        --text: #f7fbff;
+        --muted: #95a3bd;
+        --accent: #55d8b5;
+        --accent-2: #6e8dff;
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+        background: linear-gradient(135deg, #0c1727 0%, #08111d 100%);
+        color: var(--text);
+      }
+
+      .page {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 28px 20px 48px;
+      }
+
+      .hero {
+        background: rgba(16, 28, 47, 0.96);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 24px;
+        padding: 24px;
+        box-shadow: 0 16px 40px rgba(0,0,0,0.25);
+      }
+
+      .hero-header {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: rgba(85, 216, 181, 0.14);
+        color: var(--accent);
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .hero h1 { margin: 8px 0 8px; font-size: clamp(1.6rem, 3vw, 2.2rem); }
+      .hero p { color: var(--muted); line-height: 1.7; max-width: 700px; }
+
+      .summary-grid {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        margin-top: 20px;
+      }
+
+      .summary-card {
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 16px;
+        padding: 16px;
+      }
+
+      .summary-card .label { color: var(--muted); font-size: 0.9rem; }
+      .summary-card .value { font-size: 1.35rem; font-weight: 700; margin-top: 6px; }
+
+      .dashboard {
+        display: grid;
+        gap: 18px;
+        grid-template-columns: 2fr 1fr;
+        margin-top: 20px;
+      }
+
+      .panel {
+        background: rgba(16, 28, 47, 0.96);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 24px;
+        padding: 20px;
+      }
+
+      .panel h2 { margin-top: 0; margin-bottom: 8px; }
+      .panel p { color: var(--muted); line-height: 1.6; }
+
+      .bars {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 12px;
+        align-items: end;
+        height: 260px;
+        margin-top: 16px;
+      }
+
+      .bar-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .bar {
+        width: 100%;
+        border-radius: 999px 999px 6px 6px;
+        background: linear-gradient(180deg, var(--accent) 0%, var(--accent-2) 100%);
+        min-height: 32px;
+      }
+
+      .bar-label { color: var(--muted); font-size: 0.85rem; }
+
+      .list {
+        display: grid;
+        gap: 12px;
+        margin-top: 14px;
+      }
+
+      .list-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 12px;
+        border-radius: 12px;
+        background: rgba(255,255,255,0.04);
+      }
+
+      .list-item strong { display: block; }
+      .pill-positive { color: var(--accent); font-weight: 700; }
+
+      @media (max-width: 860px) {
+        .dashboard { grid-template-columns: 1fr; }
+        .summary-grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <section class="hero">
+        <div class="hero-header">
+          <div>
+            <span class="eyebrow">Revenue pulse</span>
+            <h1>Sales trend visualization</h1>
+            <p>Weekly momentum is accelerating, with standout gains in premium accounts and renewed upsell activity.</p>
+          </div>
+          <div class="summary-card">
+            <div class="label">Projected growth</div>
+            <div class="value">+18.4%</div>
+          </div>
+        </div>
+
+        <div class="summary-grid">
+          <div class="summary-card">
+            <div class="label">This month</div>
+            <div class="value">$142.8k</div>
+          </div>
+          <div class="summary-card">
+            <div class="label">Active deals</div>
+            <div class="value">24</div>
+          </div>
+          <div class="summary-card">
+            <div class="label">Conversion</div>
+            <div class="value">6.8%</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="dashboard">
+        <div class="panel">
+          <h2>Weekly sales trend</h2>
+          <p>Value is plotted across the last 7 weeks to reveal stronger-than-average expansion in the latest cycle.</p>
+          <div class="bars" id="bars"></div>
+        </div>
+
+        <div class="panel">
+          <h2>Top channels</h2>
+          <p>Priority accounts continue to lead the pipeline while partner referrals remain resilient.</p>
+          <div class="list">
+            <div class="list-item"><span><strong>Enterprise</strong>High-value accounts</span><span class="pill-positive">+24%</span></div>
+            <div class="list-item"><span><strong>Mid-market</strong>Recurring expansion</span><span class="pill-positive">+17%</span></div>
+            <div class="list-item"><span><strong>Partner referrals</strong>Stable inflow</span><span class="pill-positive">+11%</span></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      const data = [48, 64, 56, 76, 69, 88, 95];
+      const bars = document.getElementById('bars');
+      const labels = ['W1','W2','W3','W4','W5','W6','W7'];
+
+      data.forEach((value, idx) => {
+        const wrap = document.createElement('div');
+        wrap.className = 'bar-wrap';
+
+        const bar = document.createElement('div');
+        bar.className = 'bar';
+        bar.style.height = `${value}%`;
+
+        const label = document.createElement('div');
+        label.className = 'bar-label';
+        label.textContent = labels[idx];
+
+        wrap.appendChild(bar);
+        wrap.appendChild(label);
+        bars.appendChild(wrap);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Dashboards</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #07111f;
+        --panel: rgba(10, 24, 40, 0.9);
+        --text: #f5f7ff;
+        --muted: #97a5c6;
+        --accent: #55d8b5;
+        --accent-2: #6e8dff;
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+        background: radial-gradient(circle at top, #14213d 0%, var(--bg) 60%);
+        color: var(--text);
+        min-height: 100vh;
+      }
+
+      .shell {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 48px 24px 72px;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 32px;
+      }
+
+      .pill {
+        display: inline-block;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(85, 216, 181, 0.16);
+        color: var(--accent);
+        font-size: 0.9rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        font-size: clamp(2rem, 4vw, 2.8rem);
+        margin: 14px 0 10px;
+      }
+
+      .lead {
+        max-width: 700px;
+        margin: 0 auto;
+        color: var(--muted);
+        font-size: 1.05rem;
+        line-height: 1.7;
+      }
+
+      .grid {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin-top: 36px;
+      }
+
+      .card {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+        background: var(--panel);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 24px;
+        padding: 24px;
+        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+        transition: transform 160ms ease, border-color 160ms ease;
+      }
+
+      .card:hover { transform: translateY(-4px); border-color: rgba(85, 216, 181, 0.4); }
+
+      .card h2 {
+        margin: 0 0 10px;
+        font-size: 1.3rem;
+      }
+
+      .card p {
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .meta span {
+        background: rgba(110, 141, 255, 0.16);
+        color: #dfe7ff;
+        border-radius: 999px;
+        padding: 7px 10px;
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 760px) {
+        .grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <header>
+        <span class="pill">Static analytics showcase</span>
+        <h1>Choose a dashboard experience</h1>
+        <p class="lead">
+          These polished landing pages are built as lightweight static sites so you can view them locally or deploy them instantly to GitHub Pages.
+        </p>
+      </header>
+
+      <section class="grid">
+        <a class="card" href="sales-dashboard/index.html">
+          <h2>Sales Trend Visualization</h2>
+          <p>
+            Explore a revenue overview with monthly momentum, top channels, and a clear view of growth opportunities.
+          </p>
+          <div class="meta">
+            <span>Revenue tracking</span>
+            <span>Weekly insights</span>
+            <span>Growth trends</span>
+          </div>
+        </a>
+
+        <a class="card" href="expense-tracker/index.html">
+          <h2>ExpenseLens</h2>
+          <p>
+            Review spending by category, track the monthly budget, and spot where to tighten costs quickly.
+          </p>
+          <div class="meta">
+            <span>Spend analysis</span>
+            <span>Budget health</span>
+            <span>Category insights</span>
+          </div>
+        </a>
+      </section>
+    </div>
+  </body>
+</html>

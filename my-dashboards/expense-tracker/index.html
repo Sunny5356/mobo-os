@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ExpenseLens</title>
+    <style>
+      :root {
+        --bg: #10131b;
+        --panel: #171c29;
+        --text: #f7f8fc;
+        --muted: #95a0b8;
+        --accent: #ff8d66;
+        --accent-2: #ff506f;
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+        background: linear-gradient(135deg, #1a1f2e 0%, #10131b 100%);
+        color: var(--text);
+      }
+
+      .page {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 28px 20px 48px;
+      }
+
+      .hero {
+        background: rgba(23, 28, 41, 0.96);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 24px;
+        padding: 24px;
+      }
+
+      .hero-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      .hero h1 { margin: 8px 0 8px; font-size: clamp(1.6rem, 3vw, 2.2rem); }
+      .hero p { color: var(--muted); line-height: 1.7; }
+
+      .budget {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: 1.2fr 0.8fr;
+        margin-top: 20px;
+      }
+
+      .panel {
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 20px;
+        padding: 18px;
+      }
+
+      .ring {
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: conic-gradient(var(--accent) 0 72%, #2d3344 72% 100%);
+        display: grid;
+        place-items: center;
+        margin: 10px auto 0;
+      }
+
+      .ring-inner {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: var(--panel);
+        display: grid;
+        place-items: center;
+        text-align: center;
+        padding: 10px;
+      }
+
+      .tag-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .chip {
+        background: rgba(255,255,255,0.05);
+        border-radius: 999px;
+        padding: 8px 10px;
+        font-size: 0.9rem;
+      }
+
+      .list { display: grid; gap: 10px; margin-top: 12px; }
+      .entry {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 12px;
+        border-radius: 12px;
+        background: rgba(255,255,255,0.04);
+      }
+
+      .entry strong { display: block; }
+      .entry small { color: var(--muted); }
+      .amount { color: #ffd2c4; font-weight: 700; }
+
+      @media (max-width: 840px) {
+        .budget { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <section class="hero">
+        <div class="hero-header">
+          <div>
+            <span class="eyebrow" style="color:#ff8d66; background:rgba(255,141,102,0.16);">Budget control</span>
+            <h1>ExpenseLens overview</h1>
+            <p>Spending remains within target, but discretionary workstream costs are rising faster than planned.</p>
+          </div>
+          <div class="panel" style="min-width: 220px;">
+            <div style="color: var(--muted); font-size:0.9rem;">Monthly spend</div>
+            <div style="font-size:1.5rem; font-weight:700; margin-top:6px;">$8,240</div>
+          </div>
+        </div>
+
+        <div class="budget">
+          <div class="panel">
+            <h2>Budget utilization</h2>
+            <div class="ring">
+              <div class="ring-inner">
+                <div style="font-size: 1.5rem; font-weight: 700;">72%</div>
+                <div style="color: var(--muted); font-size: 0.9rem;">of target</div>
+              </div>
+            </div>
+            <div class="tag-row">
+              <span class="chip">Ops +14%</span>
+              <span class="chip">Marketing +6%</span>
+              <span class="chip">Travel -3%</span>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h2>Recent transactions</h2>
+            <div class="list">
+              <div class="entry"><div><strong>Cloud hosting</strong><small>Infrastructure</small></div><span class="amount">$640</span></div>
+              <div class="entry"><div><strong>Design tools</strong><small>Product</small></div><span class="amount">$210</span></div>
+              <div class="entry"><div><strong>Client lunch</strong><small>Ops</small></div><span class="amount">$88</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
